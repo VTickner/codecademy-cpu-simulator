@@ -110,11 +110,17 @@ There are a number of decisions I made as to how to approach and code this game.
 
 - TODO ...
 - Error checking:
-  - Refactored error checking to use `raise Exception("error message")`
+  - Refactored error checking in CPU class to use `raise Exception("error message")` with try/except block used to display error message.
 
 ### What I learned
 
-- TODO ...
+- If script is run directly, then python sets `__name__ = "__main__"`. If the same script is imported into another module, then python sets `__name__ = "main"`:
+
+  ```python
+  # checks whether current script is being executed as main program, if so will execute
+  if __name__ == "__main__":
+      main()
+  ```
 
 ### Potential improvements to program
 

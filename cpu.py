@@ -87,12 +87,12 @@ class CPU:
             elif (code == 2):
                 self.cache.flush()
             else:
-                print("ERROR: INVALID CACHE CODE")
+                raise Exception("INVALID CACHE CODE")
         elif opcode == "HALT":
             print("Execution halted")
             return True     # terminate execution (used in main.py)
         else:
-            print("ERROR: INVALID OPCODE")
+            raise Exception("INVALID OPCODE")
         
         return False        # execution should continue (used in main.oy)
     
