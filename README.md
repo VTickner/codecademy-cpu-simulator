@@ -108,9 +108,10 @@ For this particular project I decided to simulate working with the cache, the me
 
 There are a number of decisions I made as to how to approach and code this game. So below is an explanation as to the what and why I wrote the code in the way that I did.
 
-- TODO ...
+- Refactor code so could handle error messaging in a more suitable way.
 - Error checking:
   - Refactored error checking in CPU class to use `raise Exception("error message")` with try/except block used to display error message.
+  - Added raise/exception in MemoryBus class to better handle errors.
 
 ### What I learned
 
@@ -121,6 +122,8 @@ There are a number of decisions I made as to how to approach and code this game.
   if __name__ == "__main__":
       main()
   ```
+
+- `enumerate()` to create a list of registers so can enable printing out status of each register.
 
 ### Potential improvements to program
 
