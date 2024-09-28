@@ -17,12 +17,14 @@ class CPU:
             # remove any newline characters
             return [instruction.strip() for instruction in instructions]
         except FileNotFoundError:
-            print(f"ERROR: The file '{filename}' was not found.")
-            return []
+            raise FileNotFoundError(f"ERROR: The instruction file '{filename}' was not found.")
     
     def decode(self, instruction):
         # decode the instruction into its components (opcode, operands)
         return instruction.split(",")
+
+    def parse_register(self, register_str):
+        return int(register_str[1:])
 
     def execute(self, instruction):
         # executes the provided instruction, *operands captures remaining elements after opcode in a list
@@ -30,32 +32,26 @@ class CPU:
         
         if opcode == "ADD":
             # get register numbers from string representation e.g. R2 -> 2
-            Rd = int(operands[0][1:])
-            Rs = int(operands[1][1:])
-            Rt = int(operands[2][1:])
+            Rd, Rs, Rt = map(self.parse_register, operands)
             # obtain data from register locations
             self.registers[Rd] = self.registers[Rs] + self.registers[Rt]
         elif opcode == "ADDI":
-            Rt = int(operands[0][1:])
-            Rs = int(operands[1][1:])
+            Rt = self.parse_register(operands[0])
+            Rs = self.parse_register(operands[1])
             immd = int(operands[2])
             self.registers[Rt] = self.registers[Rs] + immd
         elif opcode == "SUB":
-            Rd = int(operands[0][1:])
-            Rs = int(operands[1][1:])
-            Rt = int(operands[2][1:])
+            Rd, Rs, Rt = map(self.parse_register, operands)            
             self.registers[Rd] = self.registers[Rs] - self.registers[Rt]
         elif opcode == "SLT":
-            Rd = int(operands[0][1:])
-            Rs = int(operands[1][1:])
-            Rt = int(operands[2][1:])
+            Rd, Rs, Rt = map(self.parse_register, operands)
             if (self.registers[Rs] < self.registers[Rt]):
                 self.registers[Rd] = 1
             else:
                 self.registers[Rd] = 0
         elif opcode == "BNE":
-            Rs = int(operands[0][1:])
-            Rt = int(operands[1][1:])
+            Rs = self.parse_register(operands[0])
+            Rt = self.parse_register(operands[1])
             offset = int(operands[2])
             if (self.registers[Rs] != self.registers[Rt]):
                 self.pc = (self.pc + 4) + offset * 4
@@ -67,15 +63,15 @@ class CPU:
             self.registers[7] = self.pc + 4
             self.pc = target * 4
         elif opcode == "LW":
-            Rt = int(operands[0][1:])
+            Rt = self.parse_register(operands[0])
             offset = int(operands[1])
-            Rs = int(operands[2][1:])
+            Rs = self.parse_register(operands[2])
             memory_address = self.registers[Rs] + offset
             self.registers[Rt] = self.memory_bus.read(memory_address)
         elif opcode == "SW":
-            Rt = int(operands[0][1:])
+            Rt = self.parse_register(operands[0])
             offset = int(operands[1])
-            Rs = int(operands[2][1:])
+            Rs = self.parse_register(operands[2])
             memory_address = self.registers[Rs] + offset
             self.memory_bus.write(memory_address, self.registers[Rt])
         elif opcode == "CACHE":
@@ -89,7 +85,7 @@ class CPU:
             else:
                 raise Exception("INVALID CACHE CODE")
         elif opcode == "HALT":
-            print("Execution halted")
+            print("Execution halted.")
             return True     # terminate execution (used in main.py)
         else:
             raise Exception("INVALID OPCODE")

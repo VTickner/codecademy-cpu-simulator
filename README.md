@@ -10,8 +10,7 @@ This portfolio project was created as part of [Codecademy's](https://www.codecad
 - [Process](#process)
   - [Coding decisions](#coding-decisions)
   - [What I learned](#what-i-learned)
-  - [Potential improvements to program](#potential-improvements-to-program)
-  - [Useful resources](#useful-resources)
+  - [Results of cpu.print_status()](#results-of-cpuprint_status)
 - [Author](#author)
 
 ## Project Overview
@@ -79,7 +78,6 @@ For this particular project I decided to simulate working with the cache, the me
     - `turn_off()`
     - `turn_on()`
     - `flush()`
-    - `is_enable()`
     - `read()`
     - `write()`.
   - MemoryBus class will need:
@@ -108,10 +106,28 @@ For this particular project I decided to simulate working with the cache, the me
 
 There are a number of decisions I made as to how to approach and code this game. So below is an explanation as to the what and why I wrote the code in the way that I did.
 
-- Refactor code so could handle error messaging in a more suitable way.
+- Refactor code:
+
+  - So could handle error messaging in a more suitable way.
+  - Improving flexibility of input files by removing hardcoded filenames and passing them as arguments instead.
+  - Added extra function `cpu.parse_register()` as using the same functionality multiple times in `cpu.execute()`
+
+    ```python
+    def parse_register(self, register_str):
+        return int(register_str[1:])
+
+    def execute(self, instruction):
+        # executes the provided instruction, *operands captures remaining elements after opcode in a list
+        opcode, *operands = instruction
+
+        if opcode == "ADD":
+            # get register numbers from string representation e.g. R2 -> 2
+            Rd, Rs, Rt = map(self.parse_register, operands)
+    ```
+
 - Error checking:
-  - Refactored error checking in CPU class to use `raise Exception("error message")` with try/except block used to display error message.
-  - Added raise/exception in MemoryBus class to better handle errors.
+  - Refactored error checking in all classes to use `raise Exception("error message")` style error messages.
+  - Added checks for data and instruction files being properly loaded.
 
 ### What I learned
 
@@ -125,13 +141,63 @@ There are a number of decisions I made as to how to approach and code this game.
 
 - `enumerate()` to create a list of registers so can enable printing out status of each register.
 
-### Potential improvements to program
+### Results of cpu.print_status()
 
-- TODO ...
+- Memory contents matches up with `data_input.txt`
+- Registers and PC match up with expected outcomes of `instruction_input.txt`:
 
-### Useful resources
+  - Cache enabled
+  - R2 = R2 + 2 -> R2 = 0 + 2 -> R2 = 2
+  - R3 = R2 + R1 -> R3 = 2 + 0 -> R3 = 2
+  - J8 -> PC = 8 \* 4 -> PC = 32
 
-- TODO ...
+  ```
+  Execution halted.
+  Cache is enabled? True
+  Cache is empty.
+  Memory contents:
+  Address: 1, Value: 4
+  Address: 10, Value: 5
+  Address: 11, Value: 6
+  Address: 100, Value: 7
+  Address: 101, Value: 2
+  Address: 110, Value: 3
+  Address: 111, Value: 9
+  Registers:
+  R0: 0
+  R1: 0
+  R2: 2
+  R3: 2
+  R4: 0
+  R5: 0
+  R6: 0
+  R7: 0
+  R8: 0
+  R9: 0
+  R10: 0
+  R11: 0
+  R12: 0
+  R13: 0
+  R14: 0
+  R15: 0
+  R16: 0
+  R17: 0
+  R18: 0
+  R19: 0
+  R20: 0
+  R21: 0
+  R22: 0
+  R23: 0
+  R24: 0
+  R25: 0
+  R26: 0
+  R27: 0
+  R28: 0
+  R29: 0
+  R30: 0
+  R31: 0
+  PC: 32
+  ```
 
 ## Author
 

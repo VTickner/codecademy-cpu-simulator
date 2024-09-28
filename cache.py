@@ -28,7 +28,7 @@ class Cache:
                 value = self.memory_bus.read(memory_address)
                 self.data[memory_address] = value
         else:
-            # if cache is disable, read directly from memroy
+            # if cache is disabled, read directly from memory
             return self.memory_bus.read(memory_address)
 
     def write(self, memory_address, value):
@@ -39,6 +39,7 @@ class Cache:
         self.memory_bus.write(memory_address, value)
     
     def print_cache(self):
+        print(f"Cache is enabled? {self.enabled}")
         if not self.data:
             print("Cache is empty.")
         else:
