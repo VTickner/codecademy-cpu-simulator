@@ -105,7 +105,7 @@ For this particular project I decided to simulate working with the cache, the me
   - `print_status()` to CPU class
   - `print_cache()` to Cache class
   - `print_memory_bus()` to MemoryBus class
-  - call `cpu.print_status()` in `main()`
+  - Call `cpu.print_status()` in `main()`
 
 - Refactor code:
 
