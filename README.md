@@ -95,15 +95,17 @@ For this particular project I decided to simulate working with the cache, the me
 - Set up a GitHub repository.
 - Set up Git version control.
 - Write CPU simulation program.
-  - Realised when testing that I needed to be able to print out the status of the CPU, memory bus and cache so added:
-    - `print_status()` to CPU class
-    - `print_cache()` to Cache class
-    - `print_memory_bus()` to MemoryBus class
-    - call `cpu.print_status()` in `main()`
 - Refactor program.
 - Create blog post about project. (This README file is my post about the project I have created.)
 
 ### Coding decisions
+
+- Realised when testing that I needed to be able to print out the status of the CPU, memory bus and cache so added:
+
+  - `print_status()` to CPU class
+  - `print_cache()` to Cache class
+  - `print_memory_bus()` to MemoryBus class
+  - call `cpu.print_status()` in `main()`
 
 - Refactor code:
 
