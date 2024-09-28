@@ -69,19 +69,19 @@ For this particular project I decided to simulate working with the cache, the me
 - Project brainstorming on how the CPU simulation will work:
   - Separate different parts of the CPU into different classes.
   - CPU class will need:
-    - `\_\_init\_\_()`
+    - `__init__()`
     - `fetch()`
     - `decode()`
     - `execute()`.
   - Cache class will need:
-    - `\_\_init\_\_()`
+    - `__init__()`
     - `turn_off()`
     - `turn_on()`
     - `flush()`
     - `read()`
     - `write()`.
   - MemoryBus class will need:
-    - `\_\_init\_\_()`
+    - `__init__()`
     - `read()`
     - `write()`
     - `initialise_memory()`.
@@ -91,6 +91,7 @@ For this particular project I decided to simulate working with the cache, the me
     - Initialise memory bus.
     - Read in `data_input.txt`
     - Read in `instruction_input.txt`
+    - Decode instructions
 - Set up a GitHub repository.
 - Set up Git version control.
 - Write CPU simulation program.
@@ -103,8 +104,6 @@ For this particular project I decided to simulate working with the cache, the me
 - Create blog post about project. (This README file is my post about the project I have created.)
 
 ### Coding decisions
-
-There are a number of decisions I made as to how to approach and code this game. So below is an explanation as to the what and why I wrote the code in the way that I did.
 
 - Refactor code:
 
